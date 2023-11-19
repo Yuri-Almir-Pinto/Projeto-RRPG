@@ -1,0 +1,15 @@
+# Route settings
+PORT=
+
+# Database settings
+DB_NAME=
+DB_USERNAME=
+DB_PASSWORD=
+DB_HOST=
+
+# Session settings
+SESSION_SECRET=
+SESSION_TIMEOUT_SECONDS=
+
+# Path
+ROOT=
