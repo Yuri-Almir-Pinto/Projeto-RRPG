@@ -1,0 +1,14 @@
+.chat-area textarea {
+    width: 60%;
+    margin: 1em;
+    padding: 1em;
+    background-color: var(--chat-textarea-background);
+    border: 2px solid transparent;
+    border-radius: 1em;
+    font-size: 1em;
+    line-height: 1.4;
+    color: white;
+    resize: none;
+    overflow-y: auto;
+    outline:none;
+}

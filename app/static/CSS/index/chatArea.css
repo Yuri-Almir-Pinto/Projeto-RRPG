@@ -1,0 +1,16 @@
+.chat-area {
+    background-color: var(--chat-area-background);
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+.chat-screen {
+    flex: 4;
+    width: 90%;
+    padding: 1em;
+    overflow-y: auto;
+    color: white;
+}

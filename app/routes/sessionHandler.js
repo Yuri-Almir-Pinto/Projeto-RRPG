@@ -5,7 +5,7 @@ const { InvalidSessionError} = require(PATHS['errorHandler']);
 
 const sessionHandler = function (req, res, next) {
     debugger;
-    if (req.path == "/login" || req.path == "/register")
+    if (req.path == "/api/validate")
         return next();
 
     if (req.session.user == null) {

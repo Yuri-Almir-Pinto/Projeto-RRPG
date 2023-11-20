@@ -1,6 +1,5 @@
 require('dotenv').config();
 const PATHS = require(process.env.PATH_MANAGER)
-const errorHandler= require(PATHS['errorHandler']);
 const db = require(PATHS['orm']);
 const Users = require(PATHS['model-users']);
 const Messages = require(PATHS['model-messages']);

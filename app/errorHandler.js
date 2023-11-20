@@ -1,14 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 
-class ErrorTemplate {
-    constructor() {
-        if (new.target === ErrorTemplate) {
-            throw new Error("ErrorTemplate should not be instantiated directly.");
-        }
-    }
-}
-
-class NullInputError extends ErrorTemplate {
+class NullInputError extends Error {
     constructor(message = null, data = null) {
         super()
         this.name = "NullInputError";
@@ -17,7 +9,7 @@ class NullInputError extends ErrorTemplate {
     };
 };
 
-class InvalidCredentialsError extends ErrorTemplate {
+class InvalidCredentialsError extends Error {
     constructor(message = null, data = null) {
         super();
         this.name = "InvalidCredentialsError";
@@ -26,7 +18,7 @@ class InvalidCredentialsError extends ErrorTemplate {
     }
 };
 
-class InvalidIdentifierError extends ErrorTemplate {
+class InvalidIdentifierError extends Error {
     constructor(message = null, data = null) {
         super();
         this.name = "InvalidIdentifierError";
@@ -36,7 +28,7 @@ class InvalidIdentifierError extends ErrorTemplate {
     
 };
 
-class NotUniqueError extends ErrorTemplate {
+class NotUniqueError extends Error {
     constructor(message = null, data = null) {
         super();
         this.name = "NotUniqueError";
@@ -45,7 +37,7 @@ class NotUniqueError extends ErrorTemplate {
     }
 };
 
-class InvalidSessionError extends ErrorTemplate {
+class InvalidSessionError extends Error {
     constructor(message = null, data = null) {
         super();
         this.name = "InvalidSessionError";
@@ -79,7 +71,7 @@ async function isResponseValid(result, response) {
         case result instanceof InvalidSessionError:
             statusCode = StatusCodes.UNAUTHORIZED;
             break;
-        case !(result instanceof ErrorTemplate):
+        case !(result instanceof Error):
             isValid = true;
             break;
         default:

@@ -13,7 +13,7 @@
     "sequelize": "^6.35.0"
   },
   "scripts": {
-    "dev": "nodemon app/routes/main.js",
-    "debug": "nodemon --inspect app/routes/main.js"
+    "dev": "nodemon app/app.js",
+    "debug": "nodemon --inspect app/app.js"
   }
 }

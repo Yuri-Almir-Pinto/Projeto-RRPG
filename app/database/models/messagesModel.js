@@ -14,7 +14,6 @@ const { ValidationError } = require('sequelize');
  */
 async function sendMessage(content, userId) {
     const trans = await db.sequelize.transaction();
-    
     try {
         const message = await db.Messages.build({
             content: content,
