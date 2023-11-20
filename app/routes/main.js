@@ -19,12 +19,11 @@ require('dotenv').config();
     if (shouldQuit)
         process.exit();
 })()
-
-const PATHS = require('../pathManager');
+const PATHS = require(process.env.PATH_MANAGER);
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
-const { Users, Messages } = require(PATHS['model']);
+const { Users, Messages, resetDatabase } = require(PATHS['model']);
 const compression = require('compression');
 const pug = require('pug');
 const bodyParser = require('body-parser');
@@ -43,7 +42,9 @@ const { isResponseValid } = require(PATHS['errorHandler']);
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
 // Sessions
-    app.use(session({secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true}));
+    app.use(session({secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: false, cookie: {
+        maxAge: (process.env.SESSION_TIMEOUT_SECONDS * 1000)
+    }}));
 // Setar o uso de gzip (Comprimir )
     app.use(compression());
 // Validação de sessáo
@@ -51,11 +52,19 @@ const { isResponseValid } = require(PATHS['errorHandler']);
 
 //#endregion
 
-app.post("/sendMessage", async function(req, res) {
+app.post("/message", async function(req, res) {
     const content = req.body.content;
     const userId = req.session.user.id;
 
     const result = await Messages.sendMessage(content, userId);
+
+    await isResponseValid(result, res);
+
+    await res.json(result);
+})
+
+app.get("/message", async function(req, res) {
+    const result = await Messages.getMessages();
 
     await isResponseValid(result, res);
 

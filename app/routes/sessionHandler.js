@@ -1,29 +1,21 @@
+const { isResponseValid } = require("../errorHandler");
+
+const PATHS = require(process.env.PATH_MANAGER);
+const { InvalidSessionError} = require(PATHS['errorHandler']);
+
 const sessionHandler = function (req, res, next) {
+    debugger;
     if (req.path == "/login" || req.path == "/register")
         return next();
 
     if (req.session.user == null) {
-        return res.json({
-            error: {
-                name: "invalidSession",
-                message: "Sessão de usuário inválida."
-            }
-        })
+        error = new InvalidSessionError();
+        isResponseValid(error, res);
+        return res.json(error);
     }
     else {
-        if (req.session.timeout < Date.now()) {
-            req.session.user = null;
-            req.session.timeout = null;
-            return res.json({
-                error: {
-                    name: "invalidSession",
-                    message: "Sessão de usuário inválida."
-                }
-            })
-        }
-        else {
         next();
-        }
+        
     }
 }
 

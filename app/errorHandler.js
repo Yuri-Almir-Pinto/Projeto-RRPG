@@ -76,6 +76,9 @@ async function isResponseValid(result, response) {
         case result instanceof NotUniqueError:
             statusCode = StatusCodes.CONFLICT;
             break;
+        case result instanceof InvalidSessionError:
+            statusCode = StatusCodes.UNAUTHORIZED;
+            break;
         case !(result instanceof ErrorTemplate):
             isValid = true;
             break;
