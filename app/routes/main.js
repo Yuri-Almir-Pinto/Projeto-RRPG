@@ -2,7 +2,25 @@
 
 // Importando módulos
 require('dotenv').config();
-const PATHS = require(process.env.PATH_MANAGER)
+// Checando se todas as variáveis de ambiente estão setadas.
+(() => {
+    const variables = [
+        "PORT", "DB_NAME", "DB_USERNAME", "DB_PASSWORD", "DB_HOST", "SESSION_SECRET", "SESSION_TIMEOUT_SECONDS", 
+        "ROOT_PATH", "PATH_MANAGER"
+    ];
+    
+    let shouldQuit = false;
+    for (const vars of variables) {
+        if (process.env[vars] == null || process.env[vars] == '') {
+            console.warn(`Variável de ambiente '${vars}' não foi atribuida.`);
+            shouldQuit = true;
+        }
+    }
+    if (shouldQuit)
+        process.exit();
+})()
+
+const PATHS = require('../pathManager');
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
@@ -10,8 +28,7 @@ const { Users, Messages } = require(PATHS['model']);
 const compression = require('compression');
 const pug = require('pug');
 const bodyParser = require('body-parser');
-const errorHandler = require(PATHS['errorHandler']);
-const { StatusCodes } = require('http-status-codes')
+const { isResponseValid } = require(PATHS['errorHandler']);
 
 // Setando configurações no express.
 // cors
@@ -40,6 +57,8 @@ app.post("/sendMessage", async function(req, res) {
 
     const result = await Messages.sendMessage(content, userId);
 
+    await isResponseValid(result, res);
+
     await res.json(result);
 })
 
@@ -49,7 +68,7 @@ app.get("/login", async function(req, res) {
 
     const result = await Users.login(login, password);
     
-    if (result.error == null) {
+    if (await isResponseValid(result, res)) {
         req.session.user = result;
         const timeout = process.env.SESSION_TIMEOUT_SECONDS;
         req.session.timeout = Date.now() + timeout*1000;
@@ -65,7 +84,7 @@ app.post("/register", async function(req, res) {
 
     const result = await Users.register(login, senha, email);
 
-    if (result?.error == null) {
+    if (await isResponseValid(result, res)) {
         req.session.user = result;
         const timeout = process.env.SESSION_TIMEOUT_SECONDS;
         req.session.timeout = Date.now() + timeout*1000;

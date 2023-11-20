@@ -42,7 +42,7 @@ async function register(login, senha, email) {
     catch(err) {
         trans.rollback();
         if (err instanceof errorHandler.NullInputError) {
-            return err.toJson();
+            return err;
         }
         if (err instanceof ValidationError) {
             const FIRST_ERROR = 0;

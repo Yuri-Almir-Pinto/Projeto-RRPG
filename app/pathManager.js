@@ -1,4 +1,3 @@
-require('dotenv').config()
 const root = process.env.ROOT_PATH;
 
 const PATHS = {

@@ -35,7 +35,7 @@ async function sendMessage(content, userId) {
         if (err instanceof ValidationError) {
             const FIRST_ERROR = 0;
             if (err.errors[FIRST_ERROR].type.includes("notNull")) {
-                return new errorHandler.NullInputError("Id de usuário nulo.");
+                return new errorHandler.NullInputError("Conteúdo da mensagem nulo.");
             }
         }
         console.log("Erro ao tentar enviar uma mensagem: " + err);
