@@ -2,15 +2,16 @@
 
 // Importando módulos
 require('dotenv').config();
+const PATHS = require(process.env.PATH_MANAGER)
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
-const models = require(`${process.env.ROOT_PATH}/app/database/models`);
-const path = require('path');
-const compression = require('compression')
+const { Users, Messages } = require(PATHS['model']);
+const compression = require('compression');
 const pug = require('pug');
-const bodyParser = require('body-parser')
-
+const bodyParser = require('body-parser');
+const errorHandler = require(PATHS['errorHandler']);
+const { StatusCodes } = require('http-status-codes')
 
 // Setando configurações no express.
 // cors
@@ -29,7 +30,7 @@ const bodyParser = require('body-parser')
 // Setar o uso de gzip (Comprimir )
     app.use(compression());
 // Validação de sessáo
-    app.use(require(process.env.ROOT_PATH + "/app/routes/session-handler.js"));
+    app.use(require(PATHS['sessionHandler']));
 
 //#endregion
 
@@ -37,7 +38,7 @@ app.post("/sendMessage", async function(req, res) {
     const content = req.body.content;
     const userId = req.session.user.id;
 
-    const result = await models.sendMessage(content, userId);
+    const result = await Messages.sendMessage(content, userId);
 
     await res.json(result);
 })
@@ -46,7 +47,7 @@ app.get("/login", async function(req, res) {
     const login = req.body.login;
     const password = req.body.password;
 
-    const result = await models.login(login, password);
+    const result = await Users.login(login, password);
     
     if (result.error == null) {
         req.session.user = result;
@@ -54,7 +55,7 @@ app.get("/login", async function(req, res) {
         req.session.timeout = Date.now() + timeout*1000;
     }
 
-    await res.json(result);
+    return await res.json(result);
 })
 
 app.post("/register", async function(req, res) {
@@ -62,9 +63,9 @@ app.post("/register", async function(req, res) {
     const senha = req.body.senha;
     const email = req.body.email;
 
-    const result = await models.register(login, senha, email);
+    const result = await Users.register(login, senha, email);
 
-    if (result != null && result.error == null) {
+    if (result?.error == null) {
         req.session.user = result;
         const timeout = process.env.SESSION_TIMEOUT_SECONDS;
         req.session.timeout = Date.now() + timeout*1000;
@@ -74,7 +75,7 @@ app.post("/register", async function(req, res) {
 })
 
 app.delete("/resetDatabase", async function(req, res) {
-    await models.resetDatabase();
+    await resetDatabase();
 
     await res.json({
         "result": "nice"

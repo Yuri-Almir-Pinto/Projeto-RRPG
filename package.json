@@ -6,6 +6,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "http-status-codes": "^2.3.0",
     "mysql2": "^3.6.3",
     "nodemon": "^3.0.1",
     "pug": "^3.0.2",
@@ -14,5 +15,5 @@
   "scripts": {
     "dev": "nodemon app/routes/main.js",
     "debug": "nodemon --inspect app/routes/main.js"
-}
+  }
 }
