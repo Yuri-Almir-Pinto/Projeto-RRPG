@@ -2,7 +2,7 @@ const PATHS = require(process.env.PATH_MANAGER);
 const { Users } = require(PATHS['model']);
 const { isResponseValid } = require(PATHS['errorHandler']);
 
-async function getValidate(req, res) {
+async function postValidateLogin(req, res) {
     const login = req.body.login;
     const password = req.body.password;
 
@@ -14,12 +14,12 @@ async function getValidate(req, res) {
     return await res.json(result);
 }
 
-async function postValidate(req, res) {
+async function postValidateRegister(req, res) {
     const login = req.body.login;
-    const senha = req.body.senha;
+    const password = req.body.password;
     const email = req.body.email;
 
-    const result = await Users.register(login, senha, email);
+    const result = await Users.register(login, password, email);
 
     if (await isResponseValid(result, res)) 
         req.session.user = result;
@@ -27,4 +27,4 @@ async function postValidate(req, res) {
     await res.json(result);
 }
 
-module.exports = { getValidate, postValidate };
+module.exports = { postValidateLogin, postValidateRegister };

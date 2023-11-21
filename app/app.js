@@ -33,10 +33,9 @@ const { TEMPLATE, API_MESSAGES, API_USERS, deleteResetDatabase } = require(PATHS
     app = express();
     app.use(cors());
 // template engine
-    app.set('views', process.env.ROOT_PATH + "app/static");
+    app.set('views', process.env.ROOT_PATH + "/app/static");
     app.set('view engine', 'pug');
 // Static CSS
-    console.log(process.env.ROOT_PATH);
     app.use(express.static('app/static/'));
 // Body Parser
     app.use(bodyParser.urlencoded({extended: false}));
@@ -49,20 +48,25 @@ const { TEMPLATE, API_MESSAGES, API_USERS, deleteResetDatabase } = require(PATHS
     app.use(compression());
 // Validação de sessáo
     app.use(require(PATHS['sessionHandler']));
+// Setar o express para assumir body de Json.
+    app.use(express.json());
 
 //#endregion
 
-app.route("/api/message")
-.get(API_MESSAGES.getMessage)
-.post(API_MESSAGES.postMessage);
+app.get("/api/message", API_MESSAGES.getMessage);
+app.post("/api/message", API_MESSAGES.postMessage);
 
-app.route("/api/validate")
-.get(API_USERS.getValidate)
-.post(API_USERS.postValidate)
+app.post("/api/validateLogin", API_USERS.postValidateLogin)
+app.post("/api/validateRegister", API_USERS.postValidateRegister)
 
 app.delete("/api/resetDatabase", deleteResetDatabase);
 
-app.get("/chat", TEMPLATE.getMain)
+app.get("/", TEMPLATE.getHome);
+app.get("/validate/login", TEMPLATE.getLogin);
+app.get("/validate/register", TEMPLATE.getRegister);
+app.get("/chat", TEMPLATE.getChat);
+
+// app.get("/chat", TEMPLATE.getMain);
 
 app.listen(process.env.PORT, function() {
     console.log(`Servidor rodando na porta ${process.env.PORT}.`);

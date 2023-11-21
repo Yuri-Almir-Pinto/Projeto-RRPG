@@ -1,0 +1,18 @@
+:root {
+    --general-background: rgb(41, 41, 41);
+    --chat-textarea-background: rgb(63, 63, 63);
+    --options-sidebar-background: rgb(20, 20, 20);
+    --button-color-purple: rgb(152, 42, 152);
+    --button-color-purple-selected: rgb(155, 82, 155);
+}
+
+body, html {
+    background-color: var(--general-background);
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: white;
+}

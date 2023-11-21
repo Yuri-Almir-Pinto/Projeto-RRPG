@@ -7,13 +7,14 @@ const PATHS = {
     "model": `${root}/app/database/models/model`,
     "model-users":  `${root}/app/database/models/usersModel`,
     "model-messages":  `${root}/app/database/models/messagesModel`,
-    "authenticate": `${root}/app/database/authenticate`,
-    "sessionHandler": `${root}/app/routes/sessionHandler`,
-    "errorHandler": `${root}/app/errorHandler`,
     "routes": `${root}/app/routes/routes`,
     "route-messages": `${root}/app/routes/API/messageRoutes`,
     "route-users": `${root}/app/routes/API/userRoutes`,
     "route-template": `${root}/app/routes/Template/template`,
+    "authenticate": `${root}/app/database/authenticate`,
+    "sessionHandler": `${root}/app/routes/sessionHandler`,
+    "errorHandler": `${root}/app/errorHandler`,
+    
 }
 
 module.exports = PATHS;

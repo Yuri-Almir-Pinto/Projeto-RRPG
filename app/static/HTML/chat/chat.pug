@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Chat
+        link(rel="stylesheet" href="/CSS/chat/main.css")
+        link(rel="stylesheet" href="CSS/chat/chatArea.css")
+        link(rel="stylesheet" href="CSS/chat/options.css")
+        link(rel="stylesheet" href="CSS/chat/chatTextArea.css")
+        link(rel="stylesheet" href="CSS/chat/userMessage.css")
+        link(rel="stylesheet" href="CSS/chat/general-styles.css")
+    body 
+        main
+            section.options
+                button 
+                    | Fetch
+            section.chat-area
+                div.chat-screen#chat-screen
+                    article.user-message-box.bottom-divisor
+                        div
+                            img(src="images/teste.png" width="50" height="50").rounded-image
+                            div.user-name
+                                | Yuri 
+                        div
+                            | And here is a very cool message!
+                textarea(rows="1" placeholder="Sua mensagem aqui...")
+    script(src="/JS/chat/messagesHandler.js")

@@ -1,16 +1,19 @@
 const PATHS = require(process.env.PATH_MANAGER);
-const { isResponseValid } = require(PATHS['errorHandler']);
 
-async function getMain(req, res) {
-    res.sendFile(`${process.env.ROOT_PATH}/app/static/HTML/index/main.html`);
+async function getHome(req, res) {
+    await res.render('HTML/home/home');
 }
 
 async function getLogin(req, res) {
-    res.sendFile(`${process.env.ROOT_PATH}/app/static/HTML/index/main.html`);
+    await res.render('HTML/login/login', { register: false });
 }
 
-async function getMain(req, res) {
-    res.sendFile(`${process.env.ROOT_PATH}/app/static/HTML/index/main.html`);
+async function getRegister(req, res) {
+    await res.render('HTML/login/login', { register: true });
 }
 
-module.exports = { getMain };
+async function getChat(req, res) {
+    await res.render('HTML/chat/chat');
+}
+
+module.exports = { getHome, getLogin, getRegister, getChat };

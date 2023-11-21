@@ -1,0 +1,28 @@
+main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+main a {
+    background-color: var(--button-color-purple);
+    color: white;
+    padding: 0.5em;
+    font-size: 150%;
+    border-radius: 0.5em;
+    width: 15%;
+    text-align: center;
+    transition: transform 0.6s, background-color 0.6s;
+}
+
+main a:hover {
+    transform: scale(1.2);
+    background-color: var(--button-color-purple-selected);
+}
+
+main a:visited, main a:link {
+    text-decoration: none;
+}
