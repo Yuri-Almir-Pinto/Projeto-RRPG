@@ -13,7 +13,7 @@ async function getRegister(req, res) {
 }
 
 async function getChat(req, res) {
-    await res.render('HTML/chat/chat');
+    await res.render('HTML/chat/chat', { userId: req.session.user.id });
 }
 
 module.exports = { getHome, getLogin, getRegister, getChat };

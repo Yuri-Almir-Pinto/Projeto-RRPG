@@ -1,6 +1,11 @@
 const PATHS = require(process.env.PATH_MANAGER);
 const { Messages } = require(PATHS['model']);
 const { isResponseValid } = require(PATHS['errorHandler']);
+let io;
+
+setTimeout(async () => {
+    io = await require(PATHS['socketHandler']);
+}, 2000)
 
 async function getMessage(req, res) {
     const result = await Messages.getMessages();
@@ -16,7 +21,10 @@ async function postMessage(req, res) {
 
     const result = await Messages.sendMessage(content, userId);
 
-    await isResponseValid(result, res);
+    if (await isResponseValid(result, res)) {
+        io.emit("message", result);
+    }
+        
 
     await res.json(result);
 }

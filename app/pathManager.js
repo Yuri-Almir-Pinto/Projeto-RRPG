@@ -14,6 +14,8 @@ const PATHS = {
     "authenticate": `${root}/app/database/authenticate`,
     "sessionHandler": `${root}/app/routes/sessionHandler`,
     "errorHandler": `${root}/app/errorHandler`,
+    "app": `${root}/app/app`,
+    "socketHandler": `${root}/app/socketHandler`
     
 }
 

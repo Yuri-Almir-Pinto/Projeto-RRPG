@@ -26,6 +26,7 @@ const cors = require('cors');
 const compression = require('compression');
 const pug = require('pug');
 const bodyParser = require('body-parser');
+
 const { TEMPLATE, API_MESSAGES, API_USERS, deleteResetDatabase } = require(PATHS['routes']);
 
 // Setando configurações no express.
@@ -50,6 +51,9 @@ const { TEMPLATE, API_MESSAGES, API_USERS, deleteResetDatabase } = require(PATHS
     app.use(require(PATHS['sessionHandler']));
 // Setar o express para assumir body de Json.
     app.use(express.json());
+// Socket.io
+    const { Server } = require('socket.io');
+     // Mais declarações lá em baixo, junto de app.listen
 
 //#endregion
 
@@ -68,6 +72,9 @@ app.get("/chat", TEMPLATE.getChat);
 
 // app.get("/chat", TEMPLATE.getMain);
 
-app.listen(process.env.PORT, function() {
+const server = app.listen(process.env.PORT, function() {
     console.log(`Servidor rodando na porta ${process.env.PORT}.`);
 })
+const io = new Server(server);
+
+module.exports = io;

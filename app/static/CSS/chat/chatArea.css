@@ -5,12 +5,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: end;
+    max-width: 100%;
 }
 
 .chat-screen {
     flex: 4;
-    width: 90%;
+    max-width: 90%;
     padding: 1em;
     overflow-y: auto;
     color: white;
+}
+
+.chat-screen p{
+    max-width: 100%;
+    word-wrap: break-word;
 }
