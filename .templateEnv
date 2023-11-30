@@ -14,3 +14,6 @@ SESSION_TIMEOUT_SECONDS=
 # Path
 ROOT=
 PATH_MANAGER= #ROOT + app/pathManager // ALTERE ESSA VARIÁVEL PARA INCLUIR O CAMINHO ATÉ O PATH MANAGER.
+
+# Online database (Postgres)
+POSTGRES_URL='' // Se aqui tiver algo, usa essa URL ao invés das Database settings ali em cima.

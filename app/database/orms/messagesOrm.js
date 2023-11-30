@@ -37,6 +37,7 @@ Messages.beforeValidate(async (message, options) => {
         console.log("Erro ao tentar encontrar usuário da mensagem pelo seu ID: " + err);
     }
     
-})
+});
+
 
 module.exports = { Messages };

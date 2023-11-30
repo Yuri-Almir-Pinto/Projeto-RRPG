@@ -10,7 +10,7 @@
 
 .chat-screen {
     flex: 4;
-    max-width: 90%;
+    width: 90%;
     padding: 1em;
     overflow-y: auto;
     color: white;

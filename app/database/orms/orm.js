@@ -7,6 +7,8 @@ const errorHandler = require(PATHS['errorHandler']);
     const { Users } = require(PATHS['orm-users']);
     const { Messages } = require(PATHS['orm-messages']);
 
+Users.sync();
+
 Users.hasMany(Messages);
 Messages.belongsTo(Users, {
     foreignKey: {
@@ -14,7 +16,7 @@ Messages.belongsTo(Users, {
     }
 })
 
-Users.sync();
+
 Messages.sync();
 
 module.exports = { DataTypes, sequelize, Messages, Users }

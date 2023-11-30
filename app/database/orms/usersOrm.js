@@ -4,7 +4,7 @@
 // Se quiser, utilize a função "authenticate" do sequelize para verificar que tudo deu certo (then/catch).
 require('dotenv').config();
 const PATHS = require(process.env.PATH_MANAGER)
-const { sequelize, DataTypes, Model} = require(PATHS['authenticate']);
+const { sequelize, DataTypes } = require(PATHS['authenticate']);
 
 const Users = sequelize.define("users", {
     login: { 
@@ -21,6 +21,6 @@ const Users = sequelize.define("users", {
         unique: true,
         allowNull: false,
     }
-})
+});
 
 module.exports = { Users };
